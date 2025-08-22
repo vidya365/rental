@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+  {% block title %}  Sick Bed Services - Details{% endblock %}
+{% block content %}
+<style>
+.userdetail-container {
+  max-width: 340px;
+  margin: 30px auto;
+  background: #fdfdfd;
+  padding: 20px 22px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.userdetail-container h2 {
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 22px;
+  color: #333;
+}
+
+.userdetail-container form div {
+  margin-bottom: 12px;
+}
+
+.userdetail-container label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+  color: #444;
+}
+
+.userdetail-container input[type="text"],
+.userdetail-container input[type="email"] {
+  width: 100%;
+  padding: 7px 10px;
+  font-size: 13.5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  transition: border 0.2s;
+}
+
+.userdetail-container input[type="text"]:focus,
+.userdetail-container input[type="email"]:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+.userdetail-container hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 16px 0 10px 0;
+}
+
+.userdetail-container p {
+  font-size: 14px;
+  margin: 5px 0;
+  color: #333;
+}
+
+.userdetail-container button[type="submit"] {
+  width: 100%;
+  padding: 9px;
+  background-color: #007BFF;
+  color: white;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.userdetail-container button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.message-box {
+  padding: 8px 10px;
+  margin-bottom: 12px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.message-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+@media (max-width: 400px) {
+  .userdetail-container {
+    padding: 18px 14px;
+  }
+
+  .userdetail-container h2 {
+    font-size: 20px;
+  }
+
+  .userdetail-container button[type="submit"] {
+    font-size: 13.5px;
+  }
+}
+</style>
+
+<div class="userdetail-container">
+  <h2>User Details</h2>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="message-box {% if message.tags %}message-{{ message.tags }}{% endif %}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="POST">
+    {% csrf_token %}
+
+    <div>
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required value="{{ request.session.user_name|default_if_none:'' }}">
+    </div>
+
+    <div>
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" required value="{{ request.session.user_email|default_if_none:'' }}">
+    </div>
+
+    <div>
+      <label for="phone">Phone Number</label>
+      <input type="text" id="phone" name="phone" maxlength="10" required value="{{ request.session.user_phone|default_if_none:'' }}">
+    </div>
+
+    <div>
+      <label for="aadhar">Aadhaar Number</label>
+      <input type="text" id="aadhar" name="aadhar" maxlength="12" required value="{{ request.session.user_aadhar|default_if_none:'' }}">
+    </div>
+
+    <div>
+      <label for="address">Address</label>
+      <input type="text" id="address" name="address" required value="{{ request.session.user_address|default_if_none:'' }}">
+    </div>
+
+    <hr>
+
+    <p><strong>Rent Duration:</strong> {{ rental_days }} day{{ rental_days|pluralize }}</p>
+    <p><strong>Per Day Price:</strong> ₹{{ item.price_per_day }}</p>
+    <p><strong>Rent Amount (= ₹{{ item.price_per_day }} × {{ rental_days }}):</strong> ₹{{ rent_amount|default:"0" }}</p>
+    {% if delivery_option == "Delivery" %}
+      <p><strong>Delivery Charge:</strong> ₹{{ delivery_charge }}</p>
+    {% endif %}
+    <p style="font-weight: bold; font-size: 15px;">Total Payable: ₹{{ total_amount }}</p>
+
+    <button type="submit">Pay Now</button>
+  </form>
+</div>
+{% endblock %}

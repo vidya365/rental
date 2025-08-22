@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+{% block title %} Sick Bed Services -Signup{% endblock %}  
+{% block content %}
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: url('{% static "images/background.png" %}') no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    .welcome-text {
+        text-align: center;
+        color: black;
+        font-size: 2rem;
+        margin-top: 60px;
+        font-weight: 600;
+    }
+
+    .signup-container {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        padding: 30px;
+        max-width: 400px;
+        margin: 30px auto 80px;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        color: black;
+    }
+
+    .signup-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .signup-container input[type="text"],
+    .signup-container input[type="email"],
+    .signup-container input[type="password"] {
+        width: 100%;
+        padding: 10px 40px 10px 10px;
+        margin: 8px 0 16px;
+        border: none;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.2);
+        color: rgb(40, 40, 14);
+        box-sizing: border-box;
+    }
+
+    .signup-container input::placeholder {
+        color: black;
+    }
+
+    .password-wrapper {
+        position: relative;
+        width: 100%;
+        margin-bottom: 16px;
+    }
+
+    .toggle-password {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        font-size: 18px;
+        color: #333;
+    }
+
+    .signup-container button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 6px;
+        background-color: red;
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    .signup-container button:hover {
+        background-color: #005fa3;
+    }
+
+    .extra-links {
+        margin-top: 15px;
+        text-align: center;
+    }
+
+    .extra-links a {
+        color: red;
+        text-decoration: none;
+        font-size: 0.9rem;
+    }
+
+    .messages {
+        color: red;
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+</style>
+
+<div class="welcome-text">
+    Welcome to QuickNest – Create Your Free Account
+</div>
+
+<div class="signup-container">
+    <h2>Create Account</h2>
+
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="email" name="email" placeholder="Email" required>
+
+        <div class="password-wrapper">
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <i class="fa-regular fa-eye toggle-password" data-toggle="#password"></i>
+        </div>
+
+        <div class="password-wrapper">
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+            <i class="fa-regular fa-eye toggle-password" data-toggle="#confirm_password"></i>
+        </div>
+
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <div class="extra-links">
+        <p><a href="{% url 'signin' %}">Already have an account? Log in</a></p>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.toggle-password').forEach(icon => {
+        icon.addEventListener('click', () => {
+            const input = document.querySelector(icon.getAttribute('data-toggle'));
+            const isPassword = input.type === 'password';
+            input.type = isPassword ? 'text' : 'password';
+            icon.classList.toggle('fa-eye');
+            icon.classList.toggle('fa-eye-slash');
+        });
+    });
+</script>
+{% endblock %}

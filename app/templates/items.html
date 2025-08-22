@@ -1,0 +1,283 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Sick Bed Services - items{% endblock %}
+
+{% block content %}
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .items-heading {
+    text-align: center;
+    color: #e50914;
+    margin: 30px 0 40px;
+    font-size: 36px;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 15px;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .items-heading::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, #e50914, #ff6b6b);
+    border-radius: 2px;
+  }
+
+  .item-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 20px 0;
+  }
+
+  .item-card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .item-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(229, 9, 20, 0.15);
+  }
+
+  .item-image-container {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+  }
+
+  .item-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .item-card:hover .item-image {
+    transform: scale(1.05);
+  }
+
+  .availability-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .available-badge {
+    background: rgba(40, 167, 69, 0.9);
+    color: white;
+  }
+
+  .not-available-badge {
+    background: rgba(220, 53, 69, 0.9);
+    color: white;
+  }
+
+  .item-info {
+    padding: 20px;
+  }
+
+  .item-title {
+    margin: 0 0 10px;
+    font-size: 20px;
+    color: #333;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.3;
+  }
+
+  .item-price {
+    font-size: 22px;
+    color: #e50914;
+    font-weight: 700;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .item-price::before {
+    content: '₹';
+    margin-right: 5px;
+    font-size: 18px;
+  }
+
+  .item-price::after {
+    content: '/day';
+    font-size: 14px;
+    font-weight: 400;
+    color: #666;
+    margin-left: 5px;
+  }
+
+  .item-availability {
+    font-weight: 600;
+    margin: 15px 0;
+    font-size: 15px;
+    text-align: center;
+  }
+
+  .available {
+    color: #28a745;
+  }
+
+  .not-available {
+    color: #dc3545;
+  }
+
+  .next-date {
+    font-size: 14px;
+    color: #555;
+    margin-top: 8px;
+    display: block;
+    text-align: center;
+  }
+
+  .buy-now-btn {
+    display: block;
+    background: linear-gradient(135deg, #e50914 0%, #b20710 100%);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    margin: 20px auto 0;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    width: 80%;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(229, 9, 20, 0.3);
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.5px;
+  }
+
+  .buy-now-btn:hover {
+    background: linear-gradient(135deg, #b20710 0%, #e50914 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(229, 9, 20, 0.4);
+  }
+
+  .buy-now-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .no-items {
+    text-align: center;
+    padding: 50px 20px;
+    color: #666;
+    font-size: 18px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    max-width: 600px;
+    margin: 40px auto;
+  }
+
+  @media (max-width: 768px) {
+    .items-heading {
+      font-size: 28px;
+    }
+    
+    .item-grid {
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    
+    .item-info {
+      padding: 15px;
+    }
+    
+    .item-title {
+      font-size: 18px;
+    }
+    
+    .item-price {
+      font-size: 20px;
+    }
+  }
+</style>
+
+<div class="container">
+  <h1 class="items-heading">Available Rental Items</h1>
+
+  <div class="item-grid">
+    {% for item in items %}
+      <div class="item-card">
+        <div class="item-image-container">
+          {% if item.image %}
+            <img src="{{ item.image.url }}" alt="{{ item.title }}" class="item-image">
+          {% else %}
+            <img src="{% static 'images/default-placeholder.png' %}" alt="No Image" class="item-image">
+          {% endif %}
+          <div class="availability-badge {% if item.available %}available-badge{% else %}not-available-badge{% endif %}">
+            {% if item.available %}Available{% else %}Unavailable{% endif %}
+          </div>
+        </div>
+
+        <div class="item-info">
+          <h3 class="item-title">{{ item.title }}</h3>
+          <p class="item-price">{{ item.price_per_day }}</p>
+          
+          <div class="item-availability">
+            {% if item.available %}
+              {% if item.available_quantity > 1 %}
+                <span class="available">{{ item.available_quantity }} items available</span>
+              {% else %}
+                <span class="available"> 1 Available</span>
+              {% endif %}
+            {% else %}
+              <span class="not-available">Not Available</span>
+              {% if item.next_available_date %}
+                <span class="next-date">
+                  Next Available On: {{ item.next_available_date|date:"F j, Y" }}
+                </span>
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+
+        {% if item.available %}
+          <a href="{% url 'buy' item.id %}" class="buy-now-btn">Rent Now</a>
+        {% else %}
+          <button class="buy-now-btn" disabled>Unavailable</button>
+        {% endif %}
+      </div>
+    {% empty %}
+      <div class="no-items">
+        <i class="fas fa-box-open" style="font-size: 48px; color: #e50914; margin-bottom: 15px;"></i>
+        <p>No items found at the moment.</p>
+        <p style="font-size: 16px; margin-top: 10px;">Please check back later or contact us for more information.</p>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

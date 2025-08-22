@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+.payment-container {
+  max-width: 360px;
+  margin: 40px auto;
+  padding: 20px 22px;
+  background: #fdfdfd;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.payment-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.payment-option {
+  padding: 15px 18px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.payment-option:hover {
+  border-color: #007BFF;
+  background-color: #f0f8ff;
+}
+
+.payment-option input {
+  margin-right: 10px;
+}
+
+.payment-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007BFF;
+  color: white;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.payment-container button:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 400px) {
+  .payment-container {
+    padding: 18px 14px;
+  }
+
+  .payment-container h2 {
+    font-size: 20px;
+  }
+
+  .payment-container button {
+    font-size: 13.5px;
+  }
+}
+</style>
+
+<div class="payment-container">
+  <h2>Select Payment Method</h2>
+  <form method="POST">
+    {% csrf_token %}
+    
+    <div class="payment-option">
+      <label>
+        <input type="radio" name="payment_method" value="online" required>
+        Online Payment
+      </label>
+    </div>
+    
+    <div class="payment-option">
+      <label>
+        <input type="radio" name="payment_method" value="cod" required>
+        Cash on Delivery
+      </label>
+    </div>
+    
+    <button type="submit">Proceed</button>
+  </form>
+</div>
+{% endblock %}

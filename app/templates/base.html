@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %} Sick Bed Services{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Fonts and Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Josefin+Sans:wght@400;600&display=swap" rel="stylesheet">
+{% load static %}
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: 'quiksand', sans-serif;
+      background: #fff;
+      color: #222;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    /* --- Navbar --- */
+    nav {
+      background: #ec2427 
+      ;
+      border-bottom: 1px solid #dbe3ea;
+      box-shadow: 0 3px 12px rgba(40,60,70,0.04);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 5vw;
+      position: sticky;
+      z-index: 30;
+      top: 0;
+    }
+    .logo a {
+      font-size: 2rem;
+      font-family: 'quiksand', sans-serif;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #212121;
+      text-decoration: none;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      position: relative;
+    }
+    .nav-links {
+      display: flex;
+      gap: 34px;
+      align-items: center;
+      transition: none;
+    }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      font: quick-sand, sans-serif;
+      padding: 8px 8px 10px 6px;
+      transition: color 0.2s;
+      letter-spacing: 2px;
+    
+    }
+    .nav-links a:hover,
+    .nav-links a:focus {
+      color: rgb(233, 125, 125);
+      text-decoration: underline;
+      outline: none;
+    }
+    .toggle-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      width: 42px;
+      height: 38px;
+      margin-left: 18px;
+      background: none;
+      border: none;
+      outline: none;
+      z-index: 33;
+    }
+    .toggle-btn span {
+      width: 29px;
+      height: 3.5px;
+      border-radius: 2px;
+      background: white;
+      margin: 4px 0;
+      transition: all .33s;
+      display: block;
+    }
+    /* Mobile menu */
+    .nav-links.mobile {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      flex-direction: column;
+      background: rgb(244, 144, 144);
+      width: 75vw;
+      max-width: 340px;
+      height: 100vh;
+      box-shadow: -4px 0 22px rgba(60,110,50,.09);
+      border-left: 1px solid #e2e2e2;
+      padding: 68px 28px 0 28px;
+      gap: 18px;
+      z-index: 32;
+      animation: slideIn .33s;
+    }
+    .nav-links.mobile.active {
+      display: flex;
+    }
+    .toggle-btn.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .toggle-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .toggle-btn.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+    .welcome-user {
+      font-weight: 500;
+      color: white;
+      margin-left: 18px;
+      font-size: 1rem;
+      white-space: nowrap;
+      letter-spacing: .01em;
+    }
+    @keyframes slideIn {
+      from { right: -340px; opacity: 0;}
+      to { right: 0; opacity: 1;}
+    }
+    /* --- Main Content --- */
+    main {
+      flex: 1 0 auto;
+      padding: 2vw 3vw;
+    }
+    
+    /* --- Enhanced Footer Styles --- */
+    .footer-section {
+      background: #ec2427;
+      color: #fff;
+      padding: 50px 20px 20px;
+      font-family: 'Poppins', sans-serif;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+    }
+    
+    /* Decorative elements */
+    .footer-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #ffcc00, #ff9900, #ff6600);
+    }
+    
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: auto;
+      padding-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .footer-column {
+      flex: 1;
+      min-width: 220px;
+      margin-bottom: 20px;
+      padding: 0 10px;
+      transition: transform 0.3s ease;
+    }
+    
+    .footer-column:hover {
+      transform: translateY(-5px);
+    }
+    
+    .footer-column h4 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      font-weight: 600;
+      position: relative;
+      padding-bottom: 10px;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .footer-column h4::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: white;
+    }
+    
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .footer-column ul li {
+      margin: 12px 0;
+      position: relative;
+      padding-left: 20px;
+    }
+    
+    .footer-column ul li::before {
+      content: '▶';
+      position: absolute;
+      left: 0;
+      color: white;
+      font-size: 10px;
+      top: 5px;
+    }
+    
+    .footer-column ul li a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    
+    .footer-column ul li a:hover {
+      color: white;
+      padding-left: 5px;
+      text-decoration: none;
+    }
+    
+    .footer-column p {
+      margin: 15px 0;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .footer-column p i {
+      color: white;
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+    
+    .social-icons {
+      display: flex;
+      margin-top: 20px;
+      gap: 15px;
+    }
+    
+    .social-icons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 18px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .social-icons a:hover {
+      background: white;
+      color: #b20710;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 25px;
+      margin-top: 30px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* Background pattern */
+    .footer-section::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 40%;
+      height: 40%;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,0.05) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(255,255,255,0.05) 0%, transparent 20%);
+      z-index: 0;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width:990px) {
+      .footer-container { 
+        flex-direction: column; 
+        padding: 0 4vw; 
+        gap: 20px;
+      }
+      .footer-column { 
+        min-width: 0; 
+        text-align: center;
+      }
+      
+      .footer-column h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+      .footer-column ul li {
+        padding-left: 0;
+      }
+      
+      .footer-column ul li::before {
+        display: none;
+      }
+      
+      .social-icons {
+        justify-content: center;
+      }
+    }
+    
+    @media (max-width: 800px) {
+      nav { padding: 11px 2vw;}
+      .footer-container { padding: 0 3vw; }
+    }
+    
+    @media (max-width: 620px) {
+      .footer-container { padding: 0 2vw; }
+    }
+    
+    @media (max-width: 700px) {
+      .footer-column {
+        min-width: 0;
+        margin-bottom: 25px;
+      }
+    }
+    
+    @media (max-width: 750px) {
+      .nav-links {
+        display: none;
+      }
+      .nav-links.mobile,
+      .nav-links.mobile.active {
+        display: flex;
+      }
+      .toggle-btn {
+        display: flex;
+      }
+      .nav-right {
+        gap: 9px;
+      }
+      .welcome-user { margin: 10px 0 0 7px; font-size: 0.97em;}
+    }
+    
+    @media (max-width: 510px) {
+      nav { padding: 7px 1vw; }
+      .welcome-user { font-size: 0.95em;}
+      .footer-section { padding-top: 30px;}
+      .footer-column { font-size: .95rem;}
+      
+      .footer-column h4 {
+        font-size: 18px;
+      }
+      
+      .social-icons a {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+      }
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      border-radius: 6px;
+      max-width: 200px;
+      cursor: pointer;
+    }
+    
+    .logo img {
+      max-height: 60px;
+      width: auto;
+      display: block;
+      user-select: none;
+      transition: transform 0.3s ease;
+    }
+    
+    .logo:hover img,
+    .logo:focus img {
+      transform: scale(1.1);
+      outline: none;
+    }
+
+    .footer-logo img {
+      max-width: 120px;
+      height: auto;
+    }
+    
+    .footer-logo p {
+      margin-top: 8px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 200px;
+    }
+
+    
+  </style>
+</head>
+<body>
+<nav>
+<div class="logo">
+  <a href="{% url 'index' %}">
+    <img src="{% static 'images/logo.png' %}" alt="QuickNest Logo" />
+  </a>
+</div>
+  <div class="nav-right">
+    <!-- Desktop Links -->
+    <div class="nav-links desktop" id="navLinksDesktop">
+      <a href="{% url 'index' %}">Home</a>
+      <a href="{% url 'services' %}">Services</a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'items' %}">Items</a>
+        <a href="{% url 'logout' %}">Logout</a>
+      {% else %}
+        <a href="{% url 'signup' %}">Register</a>
+        <a href="{% url 'signin' %}">Signin</a>
+      {% endif %}
+    </div>
+    <!-- Mobile Links (hidden normally, shown on toggle) -->
+    <div class="nav-links mobile" id="navLinksMobile" role="menu" aria-label="Navigation Menu">
+      <a href="{% url 'index' %}">Home</a>
+      <a href="{% url 'services' %}">Services</a>
+
+      {% if user.is_authenticated %}
+        <a href="{% url 'items' %}">Items</a>
+
+        <a href="{% url 'logout' %}">Logout</a>
+      {% else %}
+        <a href="{% url 'signup' %}">Register</a>
+        <a href="{% url 'signin' %}">Signin</a>
+      {% endif %}
+    </div>
+    {% if user.is_authenticated %}
+      <span class="welcome-user">Welcome, {{ user.username }}</span>
+    {% endif %}
+    <button class="toggle-btn" id="toggleBtn" aria-label="Toggle navigation" aria-controls="navLinksMobile" aria-expanded="false" tabindex="0">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+<main>
+  {% block content %}
+  {% endblock %}
+</main>
+<footer class="footer-section">
+  <div class="footer-container">
+    <!-- ✅ Head Office -->
+    <div class="footer-column">
+      <h4>Our Head Office</h4>
+      <p><i class="fa fa-map-marker-alt"></i> Pickup/Drop Address: Shop No. 11A, Suraj Plaza, Opp. Bank of Baroda, Near MBMC, Station Road, Bhayander (W).</p>
+    </div>
+    <!-- ✅ Short Links -->
+    <div class="footer-column">
+      <h4>Short Links</h4>
+      <ul>
+        <li><a href="{% url 'items' %}">Items</a></li>
+        <li><a href="{% url 'services' %}">services
+
+        
+        </a></li>
+      </ul>
+    </div>
+   
+    <!-- ✅ Contact -->
+    <div class="footer-column">
+      <h4>Contact Us</h4>
+      <p><i class="fa fa-phone"></i> 9867348169</p>
+      <p><i class="fa fa-phone"></i>9820247550</p>
+      <p><i class="fa fa-envelope"></i>  bhayander@kutchyuvaksangh.org</p>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+  <!-- ✅ Bottom copyright -->
+  <div class="footer-bottom">
+    <p>Copyright © 2025 Kutch Yuvak Sangh. All Rights Reserved.</p>
+  </div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const toggleBtn = document.getElementById('toggleBtn');
+  const navLinksMobile = document.getElementById('navLinksMobile');
+  const navLinksDesktop = document.getElementById('navLinksDesktop');
+
+  // Toggle mobile nav open/close
+  toggleBtn.addEventListener('click', function () {
+    const isActive = navLinksMobile.classList.toggle('active');
+    toggleBtn.classList.toggle('active');
+    toggleBtn.setAttribute('aria-expanded', isActive);
+    document.body.style.overflow = isActive ? 'hidden' : '';
+    navLinksMobile.style.display = isActive ? 'flex' : 'none';
+  });
+
+  // Close mobile nav when clicking any link inside it
+  navLinksMobile.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinksMobile.classList.remove('active');
+      toggleBtn.classList.remove('active');
+      document.body.style.overflow = '';
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      navLinksMobile.style.display = 'none';
+    });
+  });
+
+  // Close mobile nav if clicked outside
+  document.addEventListener('mousedown', function (event) {
+    if (
+      navLinksMobile.classList.contains('active') &&
+      !navLinksMobile.contains(event.target) &&
+      !toggleBtn.contains(event.target)
+    ) {
+      navLinksMobile.classList.remove('active');
+      toggleBtn.classList.remove('active');
+      document.body.style.overflow = '';
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      navLinksMobile.style.display = 'none';
+    }
+  });
+
+  // Handle showing/hiding navs on resize
+  function adjustNavDisplay() {
+    if (window.innerWidth > 750) {
+      navLinksDesktop.style.display = 'flex';
+      navLinksMobile.classList.remove('active');
+      navLinksMobile.style.display = 'none';
+      toggleBtn.classList.remove('active');
+      document.body.style.overflow = '';
+      toggleBtn.setAttribute('aria-expanded', 'false');
+    } else {
+      navLinksDesktop.style.display = 'none';
+      navLinksMobile.style.display = navLinksMobile.classList.contains('active') ? 'flex' : 'none';
+    }
+  }
+
+  window.addEventListener('resize', adjustNavDisplay);
+
+  // Call once on load
+  adjustNavDisplay();
+});
+</script>
+
+</body>
+</html>

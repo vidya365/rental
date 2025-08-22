@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Sick Bed Services - Select Type{% endblock %}  
+
+{% block content %}
+
+<style>
+  .payment-container {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .payment-container h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .payment-container p {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #555;
+  }
+
+  .payment-details strong {
+    color: #000;
+  }
+
+  .payment-image-container {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  .payment-image {
+    max-width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .delivery-options {
+    text-align: left;
+    margin: 20px 0;
+  }
+
+  .delivery-options label {
+    display: block;
+    margin: 16px 0;
+    font-weight: 500;
+    padding: 14px 18px;
+    border: 1px solid #dde2eb;
+    border-radius: 7px;
+    background: #f8fafd;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.2s, background-color 0.2s;
+  }
+
+  .delivery-options label:hover {
+    border-color: #28a745;
+    background: #f0f8f4;
+  }
+
+  .delivery-options input[type="radio"] {
+    accent-color: #28a745;
+    margin-right: 10px;
+    position: relative;
+    top: 1px;
+  }
+
+  /* Highlight label border and background when radio is checked */
+  .delivery-options input[type="radio"]:checked + .option-text {
+    font-weight: 600;
+  }
+
+  .delivery-options input[type="radio"]:checked + .option-text + .option-desc {
+    color: #28a745;
+    font-weight: 500;
+  }
+  
+  /* Because input and spans are siblings, wrap text spans in a container to better handle checked styles */
+  .option-text {
+    vertical-align: middle;
+  }
+
+  .option-desc {
+    display: block;
+    font-size: 0.89em;
+    color: #888;
+    font-weight: 400;
+    margin-top: 3px;
+    margin-left: 28px;
+  }
+
+  .pay-button {
+    margin-top: 30px;
+    display: inline-block;
+    background-color: #28a745;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 600;
+  }
+
+  .pay-button:hover {
+    background-color: #218838;
+  }
+</style>
+
+{% if item.image_url %}
+  <div class="payment-image-container">
+    <img src="{{ item.image_url }}" alt="{{ item.name }}" class="payment-image">
+  </div>
+{% endif %}
+
+<div class="payment-container">
+  <h2>{{ item.name }}</h2>
+  <p>{{ item.description }}</p>
+  <p><strong>Price per Day:</strong> ₹{{ item.price_per_day }}</p>
+
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="delivery-options">
+    <label>
+  <input type="radio" name="delivery_option" value="Delivery" required>
+  <span class="option-text">
+    Delivery 
+    <span class="delivery-charge">₹50 extra</span>
+  </span>
+  <span class="option-desc">Get it delivered to your address</span>
+</label>
+
+      <label>
+        <input type="radio" name="delivery_option" value="Takeaway">
+        <span class="option-text">Pick up</span>
+        <span class="option-desc">Pick up your order from the store</span>
+      </label>
+    </div>
+
+    <button type="submit" class="pay-button">Pay Now</button>
+  </form>
+</div>
+
+{% endblock %}
