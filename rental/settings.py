@@ -13,6 +13,7 @@ ALLOWED_HOSTS = [
     '.app.github.dev',
     'rental-1-yhkm.onrender.com',
     'rental-production-321f.up.railway.app',
+    'rental-production-2aa8.up.railway.app', 
 ]
 
 
