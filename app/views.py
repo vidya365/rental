@@ -391,7 +391,7 @@ def paymentmethod(request):
                     f"Total Amount: ₹{total_amount}\n"
                     f"Payment Method: Cash on Delivery\n\n"
                     f"Please come and collect your item from our service center.\n\n"
-                    "Thank you for choosing QuickNest!"
+                    "Thank you for choosing sick bed service !"
                 )
                 send_mail(
                     subject,
@@ -442,11 +442,11 @@ def success(request, rental_id):
         rental_request.save()
 
         # ----------- ✉️ Send Email to the User -----------
-        subject = "QuickNest Booking Confirmed ✅"
+        subject = "sick bed service Booking Confirmed ✅"
         message = f"""
 Dear {rental_request.user.first_name or rental_request.user.username},
 
-Thank you for your booking with QuickNest! 🎉
+Thank you for your booking with sick bed service! 🎉
 
 Here are your booking details:
 
@@ -460,7 +460,7 @@ Your booking has been successfully confirmed. You can now take the item or wait 
 If you have any questions, feel free to contact our support team.
 
 Regards,  
-QuickNest Team
+sick bed service Team
         """
         from_email = settings.DEFAULT_FROM_EMAIL
         recipient_list = [rental_request.user.email]
@@ -493,7 +493,7 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 
 def send_reminder_email(user, rental):
-    subject = 'Reminder: Your Rental Ends Tomorrow - QuickNest'
+    subject = 'Reminder: Your Rental Ends Tomorrow - sick bed service'
     recipient_email = user.email
 
     context = {
@@ -515,7 +515,7 @@ def send_reminder_email(user, rental):
         print("Reminder Email Failed:", e)
 
 def send_overdue_emails(user, rental):
-    subject = 'Overdue Rental Notice - QuickNest'
+    subject = 'Overdue Rental Notice - sick bed service'
     recipient_email = user.email
 
     context = {
@@ -647,7 +647,7 @@ def generate_receipt(rental):
     c.drawString(50, 740, f"Rental Duration: {rental.start_date} to {rental.end_date}")
     c.drawString(50, 720, f"Total Amount: ₹{rental.total_amount}")
     c.drawString(50, 700, f"Payment Method: {rental.payment_method}")
-    c.drawString(50, 680, "Thank you for renting with QuickNest!")
+    c.drawString(50, 680, "Thank you for renting with sick bed service!")
     
     c.showPage()
     c.save()
@@ -681,34 +681,7 @@ def terms(request):
     return render(request, 'terms.html')
 
 
-from .forms import ContactForm
-def contact(request):
-    if request.method == "POST":
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
-            message = form.cleaned_data['message']
 
-            subject = f"New Inquiry from {name}"
-            full_message = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
-
-            try:
-                send_mail(
-                    subject,
-                    full_message,
-                    email,  # sender's email (from form)
-                    [' bhayander@kutchyuvaksangh.org'],  # your support/admin email
-                    fail_silently=False,
-                )
-                messages.success(request, "Your inquiry has been sent successfully. We'll get back to you soon.")
-                return redirect('contact')  # refresh page or redirect elsewhere
-            except Exception as e:
-                messages.error(request, f"Error sending email: {e}")
-    else:
-        form = ContactForm()
-
-    return render(request, "contact.html", {"form": form})
 
 from .models import Services
 def services(request):

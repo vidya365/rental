@@ -8,7 +8,6 @@ import re
 from django.db import models
 
 import uuid
-
 class RentalItem(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
@@ -30,19 +29,25 @@ class RentalItem(models.Model):
         return self.title
 
     def is_available(self):
-        return self.available_quantity > 0
+        today = timezone.now().date()
+        return self.available_quantity > 0 and (
+            not self.next_available_date or self.next_available_date <= today
+        )
 
     def update_availability(self):
+        today = timezone.now().date()
+
         if self.available_quantity == 0:
             self.available = False
             if not self.next_available_date:
-                self.next_available_date = timezone.now().date() + timedelta(days=7)
+                self.next_available_date = today + timedelta(days=7)
+        elif self.next_available_date and self.next_available_date > today:
+            self.available = False
         else:
             self.available = True
             self.next_available_date = None
         self.save()
 
-    # 🔹 NEW: stock status
     def stock_status(self):
         if self.available_quantity > 1:
             return f"{self.available_quantity} left"
@@ -50,8 +55,7 @@ class RentalItem(models.Model):
             return "Only 1 left!"
         else:
             return "Out of stock"
-
-
+            
 #  User Profile (extended from User)
 class UserDetail(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

@@ -225,7 +225,6 @@
     }
   }
 </style>
-
 <div class="container">
   <h1 class="items-heading">Available Rental Items</h1>
 
@@ -238,22 +237,18 @@
           {% else %}
             <img src="{% static 'images/default-placeholder.png' %}" alt="No Image" class="item-image">
           {% endif %}
-          <div class="availability-badge {% if item.available %}available-badge{% else %}not-available-badge{% endif %}">
-            {% if item.available %}Available{% else %}Unavailable{% endif %}
+          <div class="availability-badge {% if item.is_available %}available-badge{% else %}not-available-badge{% endif %}">
+            {% if item.is_available %}Available{% else %}Unavailable{% endif %}
           </div>
         </div>
 
         <div class="item-info">
           <h3 class="item-title">{{ item.title }}</h3>
-          <p class="item-price">{{ item.price_per_day }}</p>
+          <p class="item-price">₹{{ item.price_per_day }}/day</p>
           
           <div class="item-availability">
-            {% if item.available %}
-              {% if item.available_quantity > 1 %}
-                <span class="available">{{ item.available_quantity }} items available</span>
-              {% else %}
-                <span class="available"> 1 Available</span>
-              {% endif %}
+            {% if item.is_available %}
+              <span class="available">{{ item.stock_status }}</span>
             {% else %}
               <span class="not-available">Not Available</span>
               {% if item.next_available_date %}
@@ -265,7 +260,7 @@
           </div>
         </div>
 
-        {% if item.available %}
+        {% if item.is_available %}
           <a href="{% url 'buy' item.id %}" class="buy-now-btn">Rent Now</a>
         {% else %}
           <button class="buy-now-btn" disabled>Unavailable</button>
@@ -280,4 +275,5 @@
     {% endfor %}
   </div>
 </div>
+
 {% endblock %}

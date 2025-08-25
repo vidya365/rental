@@ -14,10 +14,7 @@ ALLOWED_HOSTS = [
     'rental-1-yhkm.onrender.com',
     'rental-production-321f.up.railway.app',
     'rental-production-2aa8.up.railway.app', 
-  
-    
 ]
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',

@@ -26,14 +26,14 @@ class RentalItemAdmin(admin.ModelAdmin):
         'next_available_date',
         'image',
     )
+    readonly_fields = ('stock_status',)
 
     def stock_status(self, obj):
         if obj.available_quantity == 0:
             return "Sold Out"
         elif obj.available_quantity == 1:
             return "Only 1 Left"
-        else:
-            return f"{obj.available_quantity} Available"
+        return f"{obj.available_quantity} Available"
     stock_status.short_description = "Stock Status"
 
 @admin.register(RentalRequest)
