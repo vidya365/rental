@@ -6,14 +6,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-54!j4d(ujrf@be=2sy!6)p&s!^17yl)8f9#qdj7vx&#n!cd3d)'
 
 DEBUG = True
-
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     '.app.github.dev',
     'rental-1-yhkm.onrender.com',
     'rental-production-321f.up.railway.app',
-    'rental-production-2aa8.up.railway.app', 
+    'rental-production-2aa8.up.railway.app',
+    'rental-2-sjrr.onrender.com',   # New Render domain
+    '.onrender.com',                # Allow all Render subdomains
+    '.railway.app',                 # Allow all Railway subdomains
 ]
 
 INSTALLED_APPS = [
