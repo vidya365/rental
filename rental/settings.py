@@ -14,6 +14,8 @@ ALLOWED_HOSTS = [
     'rental-1-yhkm.onrender.com',
     'rental-production-321f.up.railway.app',
     'rental-production-2aa8.up.railway.app', 
+  
+    
 ]
 
 
@@ -119,4 +121,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 RAZORPAY_API_KEY = 'rzp_test_wH0ggQnd7iT3bB'
 RAZORPAY_API_SECRET = 'eZseshY3oSsz2fcHZkTiSlCm'
 
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://rental-production-2aa8.up.railway.app"
+]
 
