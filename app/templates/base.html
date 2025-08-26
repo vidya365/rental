@@ -24,7 +24,8 @@
     }
     /* --- Navbar --- */
     nav {
-      background: #ec2427;
+      background: #ec2427 
+      ;
       border-bottom: 1px solid #dbe3ea;
       box-shadow: 0 3px 12px rgba(40,60,70,0.04);
       display: flex;
@@ -64,6 +65,7 @@
       padding: 8px 8px 10px 6px;
       transition: color 0.2s;
       letter-spacing: 2px;
+    
     }
     .nav-links a:hover,
     .nav-links a:focus {
@@ -71,88 +73,61 @@
       text-decoration: underline;
       outline: none;
     }
-    
-    /* --- Compact and Attractive Toggle Button --- */
     .toggle-btn {
       display: none;
-      position: relative;
-      width: 30px;
-      height: 30px;
-      background: transparent;
-      border: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       cursor: pointer;
+      width: 42px;
+      height: 38px;
+      margin-left: 18px;
+      background: none;
+      border: none;
+      outline: none;
       z-index: 33;
-      transition: all 0.3s ease;
-      border-radius: 4px;
     }
-    
-    .toggle-btn:hover {
-      background: rgba(255, 255, 255, 0.15);
-    }
-    
     .toggle-btn span {
-      position: absolute;
-      display: block;
-      width: 20px;
-      height: 2px;
-      background: white;
+      width: 29px;
+      height: 3.5px;
       border-radius: 2px;
-      opacity: 1;
-      left: 5px;
-      transform: rotate(0deg);
-      transition: all 0.25s ease-in-out;
+      background: white;
+      margin: 4px 0;
+      transition: all .33s;
+      display: block;
     }
-    
-    .toggle-btn span:nth-child(1) {
-      top: 9px;
-    }
-    
-    .toggle-btn span:nth-child(2) {
-      top: 14px;
-    }
-    
-    .toggle-btn span:nth-child(3) {
-      top: 19px;
-    }
-    
-    .toggle-btn.active span:nth-child(1) {
-      top: 14px;
-      transform: rotate(45deg);
-    }
-    
-    .toggle-btn.active span:nth-child(2) {
-      opacity: 0;
-    }
-    
-    .toggle-btn.active span:nth-child(3) {
-      top: 14px;
-      transform: rotate(-45deg);
-    }
-    
     /* Mobile menu */
     .nav-links.mobile {
-     width: 55vw;        /* smaller percentage of screen */
-  max-width: 260px;
       display: none;
       position: fixed;
       top: 0;
       right: 0;
       flex-direction: column;
       background: #ec2427;
-  
-      height: 40vh;
+     
+    
+      height: 30vh;
       box-shadow: -4px 0 22px rgba(60,110,50,.09);
       border-left: 1px solid #e2e2e2;
       padding: 68px 28px 0 28px;
       gap: 18px;
       z-index: 32;
       animation: slideIn .33s;
+       width: 55vw;        /* smaller percentage of screen */
+      max-width: 260px;  
     }
-    
     .nav-links.mobile.active {
       display: flex;
     }
-    
+    .toggle-btn.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .toggle-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .toggle-btn.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
     .welcome-user {
       font-weight: 500;
       color: white;
@@ -161,12 +136,10 @@
       white-space: nowrap;
       letter-spacing: .01em;
     }
-    
     @keyframes slideIn {
       from { right: -340px; opacity: 0;}
       to { right: 0; opacity: 1;}
     }
-    
     /* --- Main Content --- */
     main {
       flex: 1 0 auto;
@@ -394,26 +367,17 @@
         display: flex;
       }
       .toggle-btn {
-        display: block;
+        display: flex;
       }
       .nav-right {
         gap: 9px;
       }
-      .welcome-user { 
-        margin: 10px 0 0 7px; 
-        font-size: 0.97em;
-        max-width: 120px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
+      .welcome-user { margin: 10px 0 0 7px; font-size: 0.97em;}
     }
     
     @media (max-width: 510px) {
       nav { padding: 7px 1vw; }
-      .welcome-user { 
-        font-size: 0.95em;
-        max-width: 100px;
-      }
+      .welcome-user { font-size: 0.95em;}
       .footer-section { padding-top: 30px;}
       .footer-column { font-size: .95rem;}
       
@@ -425,35 +389,6 @@
         width: 35px;
         height: 35px;
         font-size: 16px;
-      }
-      
-      /* Adjust toggle button for very small screens */
-      .toggle-btn {
-        width: 26px;
-        height: 26px;
-      }
-      
-      .toggle-btn span {
-        width: 18px;
-        height: 1.8px;
-        left: 4px;
-      }
-      
-      .toggle-btn span:nth-child(1) {
-        top: 7px;
-      }
-      
-      .toggle-btn span:nth-child(2) {
-        top: 12px;
-      }
-      
-      .toggle-btn span:nth-child(3) {
-        top: 17px;
-      }
-      
-      .toggle-btn.active span:nth-child(1),
-      .toggle-btn.active span:nth-child(3) {
-        top: 12px;
       }
     }
     
@@ -479,7 +414,7 @@
       transform: scale(1.1);
       outline: none;
     }
-    
+
     .footer-logo img {
       max-width: 120px;
       height: auto;
@@ -491,6 +426,7 @@
       color: rgba(255, 255, 255, 0.9);
       max-width: 200px;
     }
+
     
   </style>
 </head>
@@ -518,8 +454,10 @@
     <div class="nav-links mobile" id="navLinksMobile" role="menu" aria-label="Navigation Menu">
       <a href="{% url 'index' %}">Home</a>
       <a href="{% url 'services' %}">Services</a>
+
       {% if user.is_authenticated %}
         <a href="{% url 'items' %}">Items</a>
+
         <a href="{% url 'logout' %}">Logout</a>
       {% else %}
         <a href="{% url 'signup' %}">Register</a>
@@ -580,7 +518,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const toggleBtn = document.getElementById('toggleBtn');
   const navLinksMobile = document.getElementById('navLinksMobile');
   const navLinksDesktop = document.getElementById('navLinksDesktop');
-  
+
   // Toggle mobile nav open/close
   toggleBtn.addEventListener('click', function () {
     const isActive = navLinksMobile.classList.toggle('active');
@@ -589,7 +527,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.style.overflow = isActive ? 'hidden' : '';
     navLinksMobile.style.display = isActive ? 'flex' : 'none';
   });
-  
+
   // Close mobile nav when clicking any link inside it
   navLinksMobile.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
@@ -600,7 +538,7 @@ document.addEventListener('DOMContentLoaded', function () {
       navLinksMobile.style.display = 'none';
     });
   });
-  
+
   // Close mobile nav if clicked outside
   document.addEventListener('mousedown', function (event) {
     if (
@@ -615,7 +553,7 @@ document.addEventListener('DOMContentLoaded', function () {
       navLinksMobile.style.display = 'none';
     }
   });
-  
+
   // Handle showing/hiding navs on resize
   function adjustNavDisplay() {
     if (window.innerWidth > 750) {
@@ -630,11 +568,13 @@ document.addEventListener('DOMContentLoaded', function () {
       navLinksMobile.style.display = navLinksMobile.classList.contains('active') ? 'flex' : 'none';
     }
   }
-  
+
   window.addEventListener('resize', adjustNavDisplay);
+
   // Call once on load
   adjustNavDisplay();
 });
 </script>
+
 </body>
 </html>
