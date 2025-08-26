@@ -338,68 +338,35 @@ section.about-container {
   <h1>Welcome to Kutch Yuvak Sangh</h1>
   <p>We provide quality hospital equipment on rent</p>
 </section>
-
 <!-- Featured Items Section -->
 <section class="featured-section" role="region" aria-label="Featured rental items">
   <h2>Featured Items</h2>
   <div class="featured-grid">
-    {% if user.is_authenticated %}
-      <!-- Authenticated users: clicking redirects to items page -->
-      <a href="{% url 'items' %}" class="featured-item" tabindex="0" role="article" aria-label="Air Bed rental for ₹200 per day">
-        <img src="{% static 'images/air_Bed.png' %}" alt="Air Bed" loading="lazy" />
-        <h3>Air Bed</h3>
-        <p>₹200/day</p>
-      </a>
-      <a href="{% url 'items' %}" class="featured-item" tabindex="0" role="article" aria-label="Hospital Bed rental for ₹350 per day">
-        <img src="{% static 'images/Hospital_Bed.png' %}" alt="Hospital Bed" loading="lazy" />
-        <h3>Hospital Bed</h3>
-        <p>₹350/day</p>
-      </a>
-      <a href="{% url 'items' %}" class="featured-item" tabindex="0" role="article" aria-label="IV Stand rental for ₹500 per day">
-        <img src="{% static 'images/IV_Stand.png' %}" alt="IV Stand" loading="lazy" />
-        <h3>IV Stand</h3>
-        <p>₹500/day</p>
-      </a>
-      <a href="{% url 'items' %}" class="featured-item" tabindex="0" role="article" aria-label="Nebulizer rental for ₹120 per day">
-        <img src="{% static 'images/Nebulizer.png' %}" alt="Nebulizer" loading="lazy" />
-        <h3>Nebulizer</h3>
-        <p>₹120/day</p>
-      </a>
-     
-    {% else %}
-      <!-- Guests: show signup modal on clicking -->
-      <a href="#" class="featured-item" tabindex="0" role="button" aria-label="Air Bed rental for ₹200 per day">
-        <img src="{% static 'images/air_Bed.png' %}" alt="Air Bed" loading="lazy" />
-        <h3>Air Bed</h3>
-        <p>₹200/day</p>
-      </a>
-      <a href="#" class="featured-item" tabindex="0" role="button" aria-label="Hospital Bed rental for ₹350 per day">
-        <img src="{% static 'images/Hospital_Bed.png' %}" alt="Hospital Bed" loading="lazy" />
-        <h3>Hospital Bed</h3>
-        <p>₹350/day</p>
-      </a>
-      <a href="#" class="featured-item" tabindex="0" role="button" aria-label="IV Stand rental for ₹500 per day">
-        <img src="{% static 'images/IV_Stand.png' %}" alt="IV Stand" loading="lazy" />
-        <h3>IV Stand</h3>
-        <p>₹500/day</p>
-      </a>
-      <a href="#" class="featured-item" tabindex="0" role="button" aria-label="Nebulizer rental for ₹120 per day">
-        <img src="{% static 'images/Nebulizer.png' %}" alt="Nebulizer" loading="lazy" />
-        <h3>Nebulizer</h3>
-        <p>₹120/day</p>
-      </a>
-     
-    {% endif %}
+    <!-- Show same products to all users -->
+    <a href="{% url 'items' %}" class="featured-item" tabindex="0" role="article" aria-label="Air Bed rental for ₹5 per day">
+      <img src="{% static 'images/air_Bed1.png' %}" alt="Air Bed" loading="lazy" />
+      <h3>Air Bed</h3>
+      <p>₹5/day</p>
+    </a>
+    <a href="{% url 'items' %}" class="featured-item" tabindex="0" role="article" aria-label="Hospital Bed rental for ₹350 per day">
+      <img src="{% static 'images/Hospital_Bed.png' %}" alt="Hospital Bed" loading="lazy" />
+      <h3>Hospital Bed</h3>
+      <p>₹15/day</p>
+    </a>
+    <a href="{% url 'items' %}" class="featured-item" tabindex="0" role="article" aria-label="IV Stand rental for ₹2 per day">
+      <img src="{% static 'images/IV_Stand1.png' %}" alt="IV Stand" loading="lazy" />
+      <h3>IV Stand</h3>
+      <p>₹2/day</p>
+    </a>
+    <a href="{% url 'items' %}" class="featured-item" tabindex="0" role="article" aria-label="Nebulizer rental for ₹5 per day">
+      <img src="{% static 'images/Nebulizer.PNG' %}" alt="Nebulizer" loading="lazy" />
+      <h3>Nebulizer</h3>
+      <p>₹5/day</p>
+    </a>
   </div>
-  
+
   <div style="text-align: center;">
-    {% if user.is_authenticated %}
-      <a href="{% url 'items' %}" class="view-more-btn" aria-label="View more rental items">View More</a>
-    {% else %}
-      <div class="login-reminder">
-        Please <a href="{% url 'signup' %}">Register</a> to view more rental items.
-      </div>
-    {% endif %}
+    <a href="{% url 'items' %}" class="view-more-btn" aria-label="View more rental items">View More</a>
   </div>
 </section>
 
