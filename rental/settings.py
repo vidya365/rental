@@ -3,7 +3,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-54!j4d(ujrf@be=2sy!6)p&s!^17yl)8f9#qdj7vx&#n!cd3d)'
+
 DEBUG = True
 
 ALLOWED_HOSTS = [
@@ -101,8 +101,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # social-auth-app-django Google OAuth2 config
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '458183466107-3als8l6an9m20lgfbh39rtv714nns571.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+
 
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = False  # For local development
 
@@ -122,8 +121,7 @@ EMAIL_HOST_PASSWORD = 'cctr xdkx aqtn iknh'  # Keep secret
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Razorpay API
-RAZORPAY_API_KEY = 'rzp_test_wH0ggQnd7iT3bB'
-RAZORPAY_API_SECRET = 'eZseshY3oSsz2fcHZkTiSlCm'
+
 
 # CSRF & Session
 CSRF_TRUSTED_ORIGINS = [
@@ -136,3 +134,22 @@ SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SAMESITE = None
 CSRF_COOKIE_SECURE = False
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+
+
+
+from pathlib import Path
+from dotenv import load_dotenv
+import os
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
+
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
+DEBUG = os.environ.get("DJANGO_DEBUG", "False") == "True"
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
+
+RAZORPAY_API_KEY = os.environ.get("RAZORPAY_API_KEY")
+RAZORPAY_API_SECRET = os.environ.get("RAZORPAY_API_SECRET")
