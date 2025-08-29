@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
-{% load static socialaccount %}
-
+{% load static %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 {% block title %}Sick Bed Services - Signin{% endblock %}
 {% block content %}
@@ -155,6 +154,7 @@
         margin: 12px 0;
     }
 </style>
+
 <div class="signin-container">
     {% if user.is_authenticated %}
         <h3 style="text-align:center; color: green;">
@@ -211,12 +211,11 @@
         </div>
 
         <!-- OR separator -->
-<div class="text-muted">or</div>
-<a href="{% provider_login_url 'google' %}" class="btn-google">
+        <div class="text-muted">or</div>
+
+      <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn-google">
     <i class="fab fa-google"></i> Sign in with Google
 </a>
-
-
 
     </form>
 </div>
@@ -237,5 +236,5 @@
         }
     }
 </script>
-{% endblock %}
 
+{% endblock %}

@@ -21,15 +21,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('app.urls')),
-    path('account/',include("allauth.urls")) ,
-    path('auth/', include('social_django.urls', namespace='social')),
-    path('accounts/', include('allauth.urls')),
-
-
-
-    ]
+    path('', include('app.urls')),  # your app routes
+    path('auth/', include('social_django.urls', namespace='social')),  # social login, callbacks, etc.
+]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
