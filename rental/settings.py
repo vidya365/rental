@@ -56,6 +56,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
+                "social_django.context_processors.backends",
+                 "django.template.context_processors.request", 
             ],
         },
     },
@@ -99,12 +101,12 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Social Auth credentials - replace with your actual OAuth2 credentials
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'YOUR_GOOGLE_CLIENT_ID'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'YOUR_GOOGLE_CLIENT_SECRET'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '458183466107-3als8l6an9m20lgfbh39rtv714nns571.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
 # Login/Logout URLs
 LOGIN_URL = 'signin'
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'signin'
 
 # Email configuration for Gmail SMTP
@@ -122,6 +124,9 @@ RAZORPAY_API_SECRET = 'eZseshY3oSsz2fcHZkTiSlCm'
 
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://rental-production-2aa8.up.railway.app"
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "https://rental-production-2aa8.up.railway.app",
 ]
+
 

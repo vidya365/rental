@@ -52,7 +52,7 @@ class RentalItem(models.Model):
         if self.available_quantity > 1:
             return f"{self.available_quantity} left"
         elif self.available_quantity == 1:
-            return "Only 1 left!"
+            return "1 available"
         else:
             return "Out of stock"
             

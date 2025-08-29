@@ -14,10 +14,12 @@ from django.conf import settings
 import razorpay
 from .utils import send_overdue_email
 from .utils import generate_order_id
+from django.contrib.auth.decorators import login_required
 
 from django.db import transaction
 
 
+@login_required
 def index(request):
     today = timezone.now().date()
     rentals = RentalRequest.objects.filter(status='approved')
@@ -35,8 +37,7 @@ def index(request):
             rental.is_overdue_email_sent = True
             rental.save(update_fields=['is_overdue_email_sent'])
 
-    return render(request, 'index.html')
-
+    return render(request, 'index.html', {"rentals": rentals, "user": request.user})
 
 # Logout view
 def logout(request):
