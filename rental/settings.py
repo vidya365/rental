@@ -100,9 +100,11 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-# Social Auth credentials - replace with your actual OAuth2 credentials
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '458183466107-3als8l6an9m20lgfbh39rtv714nns571.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+import os
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv("GOOGLE_OAUTH_CLIENT_ID")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv("GOOGLE_OAUTH_CLIENT_SECRET")
+
 
 # Login/Logout URLs
 LOGIN_URL = 'signin'
