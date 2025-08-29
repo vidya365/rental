@@ -101,10 +101,8 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # social-auth-app-django Google OAuth2 config
-import os
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('GOOGLE_CLIENT_ID')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET')
-
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '458183466107-3als8l6an9m20lgfbh39rtv714nns571.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = False  # For local development
 
