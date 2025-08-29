@@ -25,6 +25,8 @@ urlpatterns = [
     path("approve-order/<str:order_id>/", views.approve_order, name="approve_order"),
     path("terms/", views.terms, name="terms"),
     path("services/", views.services, name="services"),
+    path('accounts/', include('allauth.urls')), 
+    
     
 
 ]

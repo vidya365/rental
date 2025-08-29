@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static socialaccount %}
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-{% block title %} Sick Bed Services -Signin{% endblock %}  
+{% block title %}Sick Bed Services - Signin{% endblock %}
 {% block content %}
+
 <style>
     body {
         background: url("{% static 'images/background.png' %}") no-repeat center center fixed;
@@ -209,12 +211,13 @@
         </div>
 
         <!-- OR separator -->
-        <div class="text-muted">or</div>
+<div class="text-muted">or</div>
+<a href="{% provider_login_url 'google' %}" class="btn-google">
+    <i class="fab fa-google"></i> Sign in with Google
+</a>
 
-        <!-- Google Sign-In Button -->
-        <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn-google">
-            <i class="bi bi-google"></i> Sign in with Google
-        </a>
+
+
     </form>
 </div>
 

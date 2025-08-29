@@ -26,9 +26,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
-    'social_django',
+   
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
 ]
 
+SITE_ID = 1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -38,7 +45,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'social_django.middleware.SocialAuthExceptionMiddleware',
+     'allauth.account.middleware.AccountMiddleware',
     
 ]
 
@@ -54,7 +61,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
                 "social_django.context_processors.backends",
                  "django.template.context_processors.request", 
@@ -96,20 +102,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Authentication Backends for social auth and Django user model
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-import os
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv("GOOGLE_OAUTH_CLIENT_ID")
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv("GOOGLE_OAUTH_CLIENT_SECRET")
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '901884634920-4u6micamn0co53pasjju98sdt05lhsnm.apps.googleusercontent.com',
+            'secret': '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',
+        }
+    }
+}
 
 
 # Login/Logout URLs
 LOGIN_URL = 'signin'
-LOGIN_REDIRECT_URL = 'index'
-LOGOUT_REDIRECT_URL = 'signin'
+LOGOUT_URL='logout'
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL='signin'
 
 # Email configuration for Gmail SMTP
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
