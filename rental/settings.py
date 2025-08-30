@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
+
 # Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,7 +23,7 @@ ALLOWED_HOSTS = [
     "rental-2-sjrr.onrender.com",
     ".onrender.com",
     ".railway.app",
-    "rental-5-jl8s.onrender.com",
+    'rental-5-jl8s.onrender.com', 'localhost', '127.0.0.1'
 ]
 
 # Installed apps
@@ -34,7 +35,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "app",
-    "social_django",
+    "social_django",  # social auth
 ]
 
 # Middleware
@@ -112,8 +113,8 @@ AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
 )
 
-# Google OAuth HTTPS setting
-SOCIAL_AUTH_REDIRECT_IS_HTTPS = not DEBUG  # True on Render, False locally
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
+
 
 # Login/Logout URLs
 LOGIN_URL = "signin"
@@ -126,8 +127,8 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "your-email@gmail.com")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "your-app-password")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Razorpay API
@@ -136,20 +137,17 @@ RAZORPAY_API_SECRET = os.environ.get("RAZORPAY_API_SECRET")
 
 # CSRF & Sessions
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:8000",
+     "http://localhost:8000",
     "http://127.0.0.1:8000",
     "https://rental-5-jl8s.onrender.com",
-]
+    
+    ]
 
-if DEBUG:
-    SESSION_COOKIE_SECURE = False
-    CSRF_COOKIE_SECURE = False
-else:
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-
+    
 SESSION_COOKIE_SAMESITE = None
+SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SAMESITE = None
+CSRF_COOKIE_SECURE = False
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
 
 # Google OAuth2 keys
