@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
+
 # Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,6 +23,7 @@ ALLOWED_HOSTS = [
     "rental-2-sjrr.onrender.com",
     ".onrender.com",
     ".railway.app",
+    'rental-5-jl8s.onrender.com', 'localhost', '127.0.0.1'
 ]
 
 # Installed apps
@@ -111,7 +113,8 @@ AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
 )
 
-SOCIAL_AUTH_REDIRECT_IS_HTTPS = False  # For local dev
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
+
 
 # Login/Logout URLs
 LOGIN_URL = "signin"
@@ -134,9 +137,11 @@ RAZORPAY_API_SECRET = os.environ.get("RAZORPAY_API_SECRET")
 
 # CSRF & Sessions
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:8000",
+     "http://localhost:8000",
     "http://127.0.0.1:8000",
-]
+    "https://rental-5-jl8s.onrender.com",
+    
+    ]
 SESSION_COOKIE_SAMESITE = None
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SAMESITE = None
