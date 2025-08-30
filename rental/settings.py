@@ -22,6 +22,7 @@ ALLOWED_HOSTS = [
     "rental-2-sjrr.onrender.com",
     ".onrender.com",
     ".railway.app",
+    'rental-5-jl8s.onrender.com', 'localhost', '127.0.0.1',
 ]
 
 # Installed apps
