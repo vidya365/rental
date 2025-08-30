@@ -53,7 +53,7 @@
     .form-control:focus {
         outline: none;
         border-color: red;
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: lightcoral;
         color: white;
     }
 
@@ -154,70 +154,72 @@
         margin: 12px 0;
     }
 </style>
-
 <div class="signin-container">
     {% if user.is_authenticated %}
         <h3 style="text-align:center; color: green;">
-            Welcome, {{ user.username }}!
+            Welcome back, {{ user.username }}!
         </h3>
+        <p style="text-align:center;">You are already signed in. <a href="{% url 'index' %}">Go to home</a></p>
+    {% else %}
+        <h2>Sign In</h2>
+
+        <!-- Messages -->
+        {% if messages %}
+            <ul class="message-list">
+                {% for message in messages %}
+                    {% if "signin" in message.tags %}
+                        <li class="{{ message.tags }}">{{ message }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form method="POST" action="{% url 'signin' %}">
+            {% csrf_token %}
+
+            <!-- Username Field -->
+            <div class="mb-3">
+                <input 
+                    type="text" 
+                    name="username" 
+                    class="form-control" 
+                    placeholder="Username" 
+                    required 
+                    value="{{ request.POST.username|default:'' }}"
+                />
+            </div>
+
+            <!-- Password Field with Eye Icon -->
+            <div class="mb-3">
+                <input 
+                    type="password" 
+                    name="password" 
+                    id="password" 
+                    class="form-control" 
+                    placeholder="Password" 
+                    required 
+                />
+                <i class="fa-regular fa-eye toggle-password" onclick="togglePassword()"></i>
+                <small class="text-muted">Password should contain letters or special characters.</small>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-custom">Sign In</button>
+
+            <!-- Forgot Password -->
+            <div class="mt-2">
+                <a href="{% url 'forgot' %}" class="forgot-link">Forgot Password?</a>
+            </div>
+
+            <!-- OR separator -->
+            <div class="text-muted my-2">or</div>
+
+            <!-- Google Sign-In -->
+            <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn-google">
+                <i class="fab fa-google"></i> Sign in with Google
+            </a>
+        </form>
     {% endif %}
-
-    <h2>Sign In</h2>
-
-    <!-- Messages -->
-    {% if messages %}
-        <ul class="message-list">
-            {% for message in messages %}
-                {% if "signin" in message.tags %}
-                    <li class="{{ message.tags }}">{{ message }}</li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    {% endif %}
-
-    <form method="POST" action="{% url 'signin' %}">
-        {% csrf_token %}
-
-        <!-- Username Field -->
-        <div class="mb-3">
-            <input 
-                type="text" 
-                name="username" 
-                class="form-control" 
-                placeholder="Username" 
-                required 
-            />
-        </div>
-
-        <!-- Password Field with Eye Icon -->
-        <div class="mb-3">
-            <input 
-                type="password" 
-                name="password" 
-                id="password" 
-                class="form-control" 
-                placeholder="Password" 
-                required 
-            />
-            <i class="fa-regular fa-eye toggle-password" onclick="togglePassword()"></i>
-        </div>
-
-        <!-- Submit Button -->
-        <button type="submit" class="btn btn-custom">Sign In</button>
-
-        <!-- Forgot Password -->
-        <div class="mt-2">
-            <a href="{% url 'forgot' %}" class="forgot-link">Forgot Password?</a>
-        </div>
-
-        <!-- OR separator -->
-        <div class="text-muted">or</div>
-
-      <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn-google">
-    <i class="fab fa-google"></i> Sign in with Google
-</a>
-
-    </form>
 </div>
 
 <!-- Password Show/Hide Script -->

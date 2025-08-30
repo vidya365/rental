@@ -265,7 +265,11 @@
         </div>
 
         {% if item.is_available %}
-          <a href="{% url 'buy' item.id %}" class="buy-now-btn">Rent Now</a>
+          {% if user.is_authenticated %}
+            <a href="{% url 'buy' item.id %}" class="buy-now-btn">Rent Now</a>
+          {% else %}
+            <a href="{% url 'signup' %}" class="buy-now-btn">Register to Rent</a>
+          {% endif %}
         {% else %}
           <button class="buy-now-btn" disabled>Unavailable</button>
         {% endif %}

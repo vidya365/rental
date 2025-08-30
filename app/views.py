@@ -19,7 +19,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 
 
-@login_required
+
 def index(request):
     today = timezone.now().date()
     rentals = RentalRequest.objects.filter(status='approved')
@@ -181,6 +181,7 @@ def resetpass(request, username):
 def items(request):
     items = RentalItem.objects.all()
     return render(request, 'items.html', {'items': items})
+    
 from datetime import datetime, date
 from datetime import datetime, date  # Add date import
 
